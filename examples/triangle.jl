@@ -195,7 +195,7 @@ wgpuAdapterRequestDevice(
 
                  
 ##
-b = read("WGPU.jl/examples/shader.wgsl")  
+b = read(pkgdir(WGPU_jll)*"/examples/shader.wgsl")  
 wgslDescriptor = WGPUShaderModuleWGSLDescriptor(
         defaultInit(WGPUChainedStruct),
         pointer(b)
@@ -218,7 +218,7 @@ function load_wgsl(filename)
 end
 
 
-shaderSource = Ref(load_wgsl("WGPU.jl/examples/triangle.wgsl")[1])
+shaderSource = Ref(pkgdir(WGPU_jll)*"/examples/triangle.wgsl")[1])
 
 ##
 
