@@ -4,8 +4,16 @@ using CEnum
 
 const SIZE_MAX = 1024
 using Libdl
+using Pkg
+using Pkg.Artifacts
 
-const libWGPU = "$(@__DIR__)/../gen/libwgpu.dylib" |> normpath
+artifact_toml = joinpath(@__DIR__, "..", "Artifacts.toml")
+
+wgpu_hash = artifact_hash("WGPU_JLL", artifact_toml)
+
+wgpulibpath = artifact_path(wgpu_hash)
+
+const libWGPU = "$wgpulibpath/libwgpu.$(Libdl.dlext)" |> normpath
 
 const DEFAULT_ARRAY_SIZE = 1024
 

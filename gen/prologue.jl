@@ -1,13 +1,14 @@
 const SIZE_MAX = 1024
 using Libdl
+using Pkg
+using Pkg.Artifacts
 
-arch = lowercase(String(Sys.ARCH))
-kernel = lowercase(String(Sys.KERNEL))
+artifact_toml = joinpath(@__DIR__, "..", "Artifacts.toml")
 
-if kernel == "darwin"
-	ext = "dylib"
-end
+wgpu_hash = artifact_hash("WGPU_JLL", artifact_toml)
 
-const libWGPU = "$(@__DIR__)/../gen/libwgpu.$ext" |> normpath
+wgpulibpath = artifact_path(wgpu_hash)
+
+const libWGPU = "$wgpulibpath/libwgpu.$(Libdl.dlext)" |> normpath
 
 const DEFAULT_ARRAY_SIZE = 1024
